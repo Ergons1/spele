@@ -20,9 +20,14 @@ img { max-width: 100%; height: auto; }
   <h1><b><i>Sarkanā Raķete</i></b></h1>
 </header>
 <main>
+  <h2>Mērķis</h2>
+  <ul>
+    <li>Izvairīties no šķēršļiem</li>
+    <li>Tikt līdz beigām</li>
+  </ul>
   <p>Noteikumi.</p>
   <ul>
-    <li>Vadi Ergo</li>
+    <li>Vadi Sarkano Raķeti</li>
     <li>Savāc kauliņus</li>
   </ul>
 </main>
@@ -33,7 +38,23 @@ img { max-width: 100%; height: auto; }
 <p id="atbilde">Spied pogu</p></p>
 <footer>
   <p>Spēle datorikas stundai.</p>
-</footer>
+  <section id="laukums" hidden>
+  <h2>Spēles ekrāns</h2>
+  <p>Punkti: 0</p>
+  <p>Šeit vēlāk būs spēlētājs.</p>
+  <button onclick="paraditSakumu()">Atpakaļ</button>
+</section>
+<script>
+// Gatavā palīdzība pogām. Šodien maini lapas tekstu un izvietojumu.
+function paraditSpeli() {
+  document.getElementById("sakums").hidden = true;
+  document.getElementById("laukums").hidden = false;
+}
+function paraditSakumu() {
+  document.getElementById("sakums").hidden = false;
+  document.getElementById("laukums").hidden = true;
+}
+</script>
 </body>
 </html>
 

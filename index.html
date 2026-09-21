@@ -32,13 +32,11 @@ img { max-width: 100%; height: auto; }
   </ul>
 </main>
 </style>
-<section>
-<button onclick="document.getElementById('atbilde').textContent='Spēle sākta!'">Sākt spēli</button>
+<section id="sakums">
+  <h2>Sākuma ekrāns</h2>
+  <button onclick="paraditSpeli()">Sākt spēli</button>
 </section>
-<p id="atbilde">Spied pogu</p></p>
-<footer>
-  <p>Spēle datorikas stundai.</p>
-  <section id="laukums" hidden>
+<section id="laukums" hidden>
   <h2>Spēles ekrāns</h2>
   <p>Punkti: 0</p>
   <p>Šeit vēlāk būs spēlētājs.</p>
@@ -55,6 +53,7 @@ function paraditSakumu() {
   document.getElementById("laukums").hidden = true;
 }
 </script>
+</footer>
 </body>
 </html>
 

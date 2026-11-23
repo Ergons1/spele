@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sarkanā Raķete</title>
+<style>
+/* Pamata izkārtojums — šīs rindas nemaini */
+body { font-family: Arial, sans-serif; max-width: 680px; margin: 24px auto; padding: 16px; line-height: 1.6; background-color: #f8fafc; color: #1e293b; }
+.panelis { background-color: #ffffff; border: 2px solid #cbd5e1; border-radius: 12px; padding: 18px; margin: 16px 0; }
+.panelis p { margin: 8px 0; }
+label { display: block; font-weight: bold; margin-bottom: 4px; }
+input { font: inherit; padding: 8px 12px; width: 100%; max-width: 260px; box-sizing: border-box; margin-bottom: 12px; }
+button { font: inherit; padding: 10px 14px; margin: 4px 6px 4px 0; cursor: pointer; background-color: #245b91; color: #ffffff; border: 0; border-radius: 8px; }
+button.secondary { background-color: #475569; margin-top: 10px; }
+#atbilde { font-size: 18px; font-weight: bold; margin-top: 12px; }
+img { max-width: 100%; height: auto; }
+[hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<h1>Dārgumu meklētājs</h1>
+<p id="noteikumi">Atrodi dārgumus vienā no šim vietām, bet tev ir ne vairāk kā 3 gājieni!</p>
+<div class="panelis">
+  <label for="vards">Ergo</label>
+  <input id="vards" value="Ergo">
+
+  <div id="pogas"></div>
+
+  <p id="atbilde">Izvēlies pirmo vietu, kur meklēt.</p>
+  <p id="gajieni">Gājieni: 0 / 3 (atlikuši: 3)</p>
+  <p id="punkti">Punkti: 0</p>
+  <p id="marsruts">Pārbaudītās vietas: vēl nav</p>
+  <button class="secondary" onclick="location.reload()">Sākt no jauna</button>
+</div>
+<script>
+// === 1. UZDEVUMS — MAINI ŠEIT: 5 savas vietas, mērķa vieta un gājienu limits ===
+const vietas = ["Mežs", "Upe", "Pils", "Kalns", "Pludmale"];
+const dargumuVieta = "Pludmale";
+const gajienuLimits = 3;
+
+// === SPĒLES STĀVOKĻA ATMIŅA ===
+const apmekletas = [];
+let gajieni = 0;
+let punkti = 0;
+let beigas = false;
+
+// Pielāgo sākuma uzrakstu izvēlētajam gājienu limitam.
+document.getElementById("gajieni").textContent = "Gājieni: 0 / " + gajienuLimits + " (atlikuši: " + gajienuLimits + ")";
+
+// === GATAVĀ DAĻA — cikls izveido vienu pogu katrai masīva vietai ===
+for (let i = 0; i < vietas.length; i = i + 1) {
+  const poga = document.createElement("button");
+  poga.textContent = vietas[i];
+  poga.onclick = function () { izveleties(vietas[i]); };
+  document.getElementById("pogas").append(poga);
+}
+
+function izveleties(vieta) {
+  // Ja spēle jau ir beigusies, tālākus klikšķus vairs nepieņem.
+  if (beigas) {
+    return;
+  }
+
+  const speletajs = document.getElementById("vards").value;
+  gajieni = gajieni + 1;
+  const atlikusie = gajienuLimits - gajieni;
+
+  // === 2. UZDEVUMS — PAPILDINI ŠEIT: pievieno izvēlēto vietu masīvam apmekletas ===
+  apmekletas.push(vieta);
+
+  let zina = "";
+
+  // === 2. UZDEVUMS — MAINI ŠEIT: punktu formula un trīs iznākumu paziņojumi ===
+  if (vieta === dargumuVieta) {
+    punkti = atlikusie * 10 + 15;
+    zina = "Uzvara! " + speletajs + " atrada dārgumus vietā: " + vieta + "!";
+    beigas = true;
+  } else if (gajieni >= gajienuLimits) {
+    punkti = 0;
+    zina = "Spēle galā, " + speletajs + "! Gājieni beigušies.";
+    beigas = true;
+  } else {
+    zina = "Šeit dārgumu nav (" + vieta + "). Atlikuši gājieni: " + atlikusie;
+  }
+
+  document.getElementById("atbilde").textContent = zina;
+  document.getElementById("gajieni").textContent = "Gājieni: " + gajieni + " / " + gajienuLimits + " (atlikuši: " + atlikusie + ")";
+  document.getElementById("punkti").textContent = "Punkti: " + punkti;
+  document.getElementById("marsruts").textContent = "Pārbaudītās vietas: " + apmekletas.join(" → ");
+}
+</script>
+</body>
+</html>
